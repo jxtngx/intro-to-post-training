@@ -8,7 +8,7 @@ Use the badge below to run the recipe in a pre-configured environment hosted on 
   <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/studio-badge.svg" alt="Open In Studio"/>
 </a>
 
-## Lora finetuning Workflow
+## Lora finetuning workflow
 
 ### Setup a virtual environment
 
