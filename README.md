@@ -74,6 +74,8 @@ python wb.py
 
 ### Tune the model
 
+Finally, start the tuning run by using the following command in terminal:
+
 ```bash
 tune run lora_finetune_single_device --config lora_finetune_single_device.yaml
 ```
