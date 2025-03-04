@@ -1,12 +1,50 @@
 # LoRA Finetune Single Device
 
-This example follows the official [end-to-end workflow](https://pytorch.org/torchtune/main/tutorials/e2e_flow.html) example created by the [torchtune](https://github.com/pytorch/torchtune) team, and updates the example with the following commands to account for the need to supply a Hugging Face token to download the model, and to enable logging to Weights and Biases. Use the badge below to run the recipe in a pre-configured environment.
+This example follows the official [end-to-end workflow](https://pytorch.org/torchtune/main/tutorials/e2e_flow.html) example created by the [torchtune](https://github.com/pytorch/torchtune) team, and updates the example to account for the need to supply a Hugging Face token to download the model, and to enable logging to Weights and Biases by first copying and then editing a default config. 
+
+Use the badge below to run the recipe in a pre-configured environment hosted on Lightning AI.
 
 <a target="_blank" href="https://lightning.ai/jxtngx/studios/lora-finetune-single-device">
   <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/studio-badge.svg" alt="Open In Studio"/>
 </a>
 
-## Download the model
+## Lora finetuning Workflow
+
+### Setup a virtual environment
+
+If running locally or in a compute cloud other than Lightning AI, we will need to create a new Python environment with the following steps in terminal:
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Test that `torchtune` has been installed correctly with the following command in terminal:
+
+```bash
+tune --help
+```
+
+> [!IMPORTANT]
+> macOS and Linux/CUDA environments each have different effects on the dependency installations, this example is optimized for Linux/CUDA
+
+### Prepare the dataset
+
+The example uses the default [`alpaca_cleaned`](https://huggingface.co/datasets/yahma/alpaca-cleaned) dataset, and does not require any additional preparation on our part. 
+
+### Prepare a tuning config
+
+A [config](lora_finetune_single_device.yaml) is supplied, there is no need to use the torchtune CLI to copy a default config.
+
+### Download the model
+
+> [!IMPORTANT]
+> Make certain you have been granted access to the [model on Hugging Face](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)
+
+> [!TIP]
+> find or create your HF API key with [these instructions](https://huggingface.co/docs/hub/en/security-tokens)
+
+To download the model, use the `torchtune` CLI in the terminal as follows:
 
 ```bash
 tune download meta-llama/Llama-3.2-3B-Instruct \
@@ -15,40 +53,32 @@ tune download meta-llama/Llama-3.2-3B-Instruct \
 --output-dir ckpts/Llama-3.2-3B-Instruct
 ```
 
-## Tune the model and log the run
+### Setup Weights and Biases 
 
-1. copy the config so that we can update the experiment logger
+Next, set a W&B key or login in via the terminal. A [script](wb.py) is provided to login with Python.
 
-```bash
-tune cp llama3_2/3B_lora_single_device lora_finetune_single_device.yaml
-```
+> [!TIP]
+> find your W&B API key with [these instructions](https://docs.wandb.ai/support/find_api_key/)
 
-2. open the new yaml and ensure the metric logger setting reflects the following
+> [!NOTE]
+> if using the script, ensure you have a local .env file that uses `WANDB_API_KEY` to set your W&B login
 
-```yaml
-metric_logger:
-  _component_: torchtune.training.metric_logging.WandbBLogger
-  # the W&B project to log to
-  project: llama-3.2-3B-lora-finetune-single-device
-```
-
-3. set a W&B key or login in via the terminal. a script is provided to login with python. to use the script do the following in terminal:
+To use the script, do the following in terminal:
 
 ```bash
 python wb.py
 ```
 
-> [!NOTE]
-> if using the script, ensure you have a local .env file that uses `WANDB_API_KEY` to set your W&B login
-
 > [!IMPORTANT]
-> W&B will create a .netrc file if one does not exist. do not share this file
+> W&B will create a .netrc file if one does not exist. Do not share this file!
 
-4. tune the model
+### Tune the model
 
 ```bash
 tune run lora_finetune_single_device --config lora_finetune_single_device.yaml
 ```
 
-> [!NOTE]
-> the example uses the default dataset [`alpaca_cleaned`](https://huggingface.co/datasets/yahma/alpaca-cleaned)
+### Monitor the run
+
+On running the above command, W&B will log the run link to terminal. We can follow that link to observe our tuning run. Here is an [example](https://wandb.ai/justingoheen/lora-finetune-single-device).
+
