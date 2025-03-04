@@ -1,0 +1,6 @@
+torch
+torchvision
+torchao
+torchtune
+wandb
+python-dotenv
