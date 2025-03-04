@@ -6,7 +6,11 @@ Use the badge below to run the recipe in a pre-configured environment hosted on 
 
 <a target="_blank" href="https://lightning.ai/jxtngx/studios/lora-finetune-single-device">
   <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/studio-badge.svg" alt="Open In Studio"/>
-</a>
+</a><br/><br/>
+
+
+> [!TIP]
+> need more info on [LoRA](https://arxiv.org/abs/2106.09685) before getting started? Here's a deep dive on [LoRA with Llama 2](https://pytorch.org/torchtune/main/tutorials/lora_finetune.html) by the torchtune team, and a helpful [Hugging Chat Assistant](https://hf.co/chat/assistant/67c713539a0a2709d56261c9)
 
 ## Lora finetuning workflow
 
