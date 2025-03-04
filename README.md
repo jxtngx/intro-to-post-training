@@ -88,3 +88,7 @@ tune run lora_finetune_single_device --config lora_finetune_single_device.yaml
 
 On running the above command, W&B will log the run link to terminal. We can follow that link to observe our tuning run. Here is an [example](https://wandb.ai/justingoheen/lora-finetune-single-device).
 
+## More examples
+
+See the [torchtune docs](https://pytorch.org/torchtune/stable/index.html) for additional examples, and join the [official Discord](https://discord.gg/tyRWHtHgV7).
+
