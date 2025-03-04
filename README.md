@@ -12,7 +12,7 @@ Use the badge below to run the recipe in a pre-configured environment hosted on 
 > [!TIP]
 > need more info on [LoRA](https://arxiv.org/abs/2106.09685) before getting started? Here's a deep dive on [LoRA with Llama 2](https://pytorch.org/torchtune/main/tutorials/lora_finetune.html) by the torchtune team, and a helpful [Hugging Chat Assistant](https://hf.co/chat/assistant/67c713539a0a2709d56261c9) powered by Llama 3.3 70B Instruct
 
-## Lora finetuning workflow
+## LoRA finetuning workflow
 
 > [!IMPORTANT]
 > this example is best ran on CUDA compatible devices, including consumer hardware in the RTX family of devices
