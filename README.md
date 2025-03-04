@@ -1,6 +1,10 @@
 # LoRA Finetune Single Device
 
-This example follows the official [end-to-end workflow](https://pytorch.org/torchtune/main/tutorials/e2e_flow.html) example created by the [torchtune](https://github.com/pytorch/torchtune) team, and updates the example with the following commands to account for the need to supply a Hugging Face token to download the model, and to enable logging to Weights and Biases.
+This example follows the official [end-to-end workflow](https://pytorch.org/torchtune/main/tutorials/e2e_flow.html) example created by the [torchtune](https://github.com/pytorch/torchtune) team, and updates the example with the following commands to account for the need to supply a Hugging Face token to download the model, and to enable logging to Weights and Biases. Use the badge below to run the recipe in a pre-configured environment.
+
+<a target="_blank" href="https://lightning.ai/jxtngx/studios/lora-finetune-single-device">
+  <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/app-2/studio-badge.svg" alt="Open In Studio"/>
+</a>
 
 ## Download the model
 
@@ -35,9 +39,9 @@ python wb.py
 ```
 
 > [!NOTE]
-> ensure you have a local .env file that uses `WANDB_API_KEY` to set your W&B login
+> if using the script, ensure you have a local .env file that uses `WANDB_API_KEY` to set your W&B login
 
-> [!NOTE]
+> [!IMPORTANT]
 > W&B will create a .netrc file if one does not exist. do not share this file
 
 4. tune the model
