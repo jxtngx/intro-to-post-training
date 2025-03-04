@@ -14,6 +14,9 @@ Use the badge below to run the recipe in a pre-configured environment hosted on 
 
 ## Lora finetuning workflow
 
+> [!IMPORTANT]
+> this example is best ran on CUDA compatible devices, including consumer hardware in the RTX family of devices
+
 ### Setup a virtual environment
 
 If running locally or in a compute cloud other than Lightning AI, we will need to create a new Python environment with the following steps in terminal:
