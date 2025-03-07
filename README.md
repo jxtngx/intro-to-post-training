@@ -4,16 +4,16 @@
 
 ## Under the hood
 
-The pre-built recipes and configs are good starting points for the majority of projects, and provide excellent templates for creating custom recipes for post-training tasks that might require greater control over the training loop and data pipelines. Configs ought to follow a convention in order to correctly structure the defined settings for the Recipe. Recipes in `torchtune` are minimal and extensible by design.
+The pre-built recipes and configs are good starting points for the majority of projects, and provide excellent templates for creating custom recipes for post-training tasks that might require greater control over the training loop and data pipelines. Configs follow a convention in order to correctly structure the defined settings for the Recipe. Recipes are minimal and extensible by design.
 
-Let's take a look at what makes a config and a Recipe, according to `torchtune`.
+Let's take a look at what makes a config and a Recipe, according to torchtune.
 
 ### Configs
 
 > [!TIP]
 > see the [torchtune docs](https://pytorch.org/torchtune/stable/deep_dives/configs.html) for more information on configs
 
-Configs are yaml files that define the settings for a `torchtune` Recipe, the sections (keys) of a config are as follows:
+Configs are yaml files that define the settings for a torchtune Recipe, the sections (keys) of a config are as follows:
 
 - Model Arguments
 - Tokenizer
@@ -28,21 +28,21 @@ Configs are yaml files that define the settings for a `torchtune` Recipe, the se
 
 Since yaml is a way to define key-value pairs, Python will treat the config as a dictionary, making the values accessible via the section keys, and able to be passed to the Recipe as arguments.
 
-If we create a custom config, we can use the `torchtune` CLI to validate the config with the following command:
+If we create a custom config, we can use the torchtune CLI to validate the config with the following command:
 
 ```bash
 tune validate <CONFIG FILE PATH>
 ```
 
 > [!NOTE]
-> `torchtune` uses [OmegaConf](https://omegaconf.readthedocs.io) to parse the config files
+> torchtune uses [OmegaConf](https://omegaconf.readthedocs.io) to parse the config files
 
 ### Recipes
 
 > [!TIP]
 > see the [torchtune docs](https://pytorch.org/torchtune/stable/index.html) for more information on Recipes
 
-Pre-built Recipes in `torchtune` are Python interfaces (Classes) that prepare the model, data, and training loop for the tuning run, and manage the training loop – including saving the checkpoint when tuning is complete, and handling post-tuning cleanup. Recipes are [`FTRecipeInterface`](https://github.com/pytorch/torchtune/blob/80da6a5dae23a201595d07041c12ffde830332d7/torchtune/recipe_interfaces.py#L10) classes, with several base methods shown below:
+Pre-built Recipes are Python interfaces (Classes) that can be used to prepare the data, model, and checkpointer, and manage the training loop, including post-experiment tasks like saving the final checkpoint and shutting down the experiment manager. Recipes are [`FTRecipeInterface`](https://github.com/pytorch/torchtune/blob/80da6a5dae23a201595d07041c12ffde830332d7/torchtune/recipe_interfaces.py#L10) classes, with several base methods shown below:
 
 
 ```python
@@ -85,7 +85,10 @@ class FTRecipeInterface(Protocol):
 
 ```
 
-If we were to define a custom Recipe, we would subclass `FTRecipeInterface` and implement the methods above, extending the custom recipe as needed. For instance – there is a need to add intermediate methods for setup. The `LoRAFinetuneRecipeSingleDevice` recipe adds the following methods to support the `setup` step:
+> [!NOTE]
+> [Protocols](https://peps.python.org/pep-0544/) in Python are an instance of abc.ABC that allow for structural subtyping i.e. easier duck typing.
+
+When creating a custom Recipe, we subclass `FTRecipeInterface` and implement the methods above, extending the custom recipe as needed. For instance – there is a need to add intermediate methods for setup. The `LoRAFinetuneRecipeSingleDevice` recipe adds the following methods to support the `setup` method:
 
 ```python
 class LoRAFinetuneRecipeSingleDevice(FTRecipeInterface):
@@ -103,7 +106,7 @@ class LoRAFinetuneRecipeSingleDevice(FTRecipeInterface):
         ...
 ```
 
-Creating new Recipes with `torchtune` has a wide degree of freedom for the engineer, and the pre-built Recipes are excellent starting points for creating custom Recipes, though – the pre-built recipes are examples, and not doctrine. We can experiment!
+Creating new Recipes with torchtune has a wide degree of freedom for the engineer, and the pre-built Recipes are excellent starting points for creating custom Recipes, though – the pre-built recipes are examples, and not doctrine. We can experiment!
 
 
 ## More examples
