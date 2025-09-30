@@ -1,6 +1,9 @@
-# TorchTune Cookbook
+# Intro to Post-training
 
 [TorchTune](https://pytorch.org/torchtune/stable/index.html) is a PyTorch native post-training library. It provides a set of pre-built recipes and configs for common post-training tasks, as well as a flexible framework for creating custom recipes.
+
+> [!NOTE]
+> this cookbook is a work in progress and not an exhaustive guide to post-training with torchtune
 
 ## Under the hood
 
